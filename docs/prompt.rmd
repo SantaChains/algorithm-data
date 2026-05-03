@@ -1,0 +1,13 @@
+1. 代码最优实现
+Optimal code implementation（最标准、正式）
+Best-effort code implementation（侧重工程最优折中实现）
+Optimized implementation（简写，常用在架构文档）
+2. 项目最佳实践
+Project best practices（通用标准写法）
+Industry-standard project practices（行业级最佳实践，更正式）
+
+
+
+
+syntactic dialect 语法方言
+language dialect 编程语言方言
