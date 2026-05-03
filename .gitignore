@@ -1,8 +1,6 @@
 .jj/
 .history/
 
-
-
 .vscode/
 .idea/
 .trae/
@@ -10,3 +8,66 @@
 .opencode/
 .agents/
 .claude/
+
+# OS
+Thumbs.db
+.DS_Store
+Desktop.ini
+*~
+
+# Build outputs
+bin/
+obj/
+build/
+dist/
+out/
+target/
+__pycache__/
+*.pyc
+*.pyo
+*.class
+*.o
+*.so
+*.dll
+*.exe
+
+# Node
+node_modules/
+
+# Python
+.venv/
+venv/
+env/
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Java
+*.jar
+*.war
+*.ear
+
+# Rust
+Cargo.lock
+
+# Go
+*.exe
+
+# Data/Cache
+*.log
+*.tmp
+*.cache
+.cache/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS
+$RECYCLE.BIN/
+System Volume Information/

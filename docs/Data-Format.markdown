@@ -34,6 +34,12 @@ poedit .po
 
 potext
 
+SDL trados
+
+YiCAT
+
+Memsource Cloud
+
 
 
 DocTranslator

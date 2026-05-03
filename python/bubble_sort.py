@@ -1,4 +1,4 @@
-def bubble_sort(arr):
+def bubble_sort(arr: list) -> list:
     """
     冒泡排序
     @param arr: 待排序数组
