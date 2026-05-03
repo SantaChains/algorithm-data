@@ -4,7 +4,7 @@
 .vscode/
 .idea/
 .trae/
-
+.obsidian/
 .opencode/
 .agents/
 .claude/
@@ -50,6 +50,25 @@ build/
 
 # Rust
 Cargo.lock
+
+# LaTeX
+*.aux
+*.log
+*.toc
+*.lof
+*.lot
+*.out
+*.bbl
+*.blg
+*.idx
+*.ind
+*.ilg
+*.thm
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.synctex(bus)
+*.nav
 
 # Go
 *.exe

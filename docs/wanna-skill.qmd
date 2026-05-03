@@ -1,0 +1,54 @@
+
+工程制图
+
+设计 艺术
+
+心理学
+
+歌词
+作曲编曲
+
+数据清洗
+numpy
+pandas
+seaborn
+matplotlib
+
+AI
+pytorch
+tensorflow
+
+图像
+opencv
+pillow
+
+遥感
+
+GUI TUI CLI 
+drag and drop
+i18n plugins 
+schema 
+
+QT 
+
+kotlion json regex
+
+bun vite8 tuari2 tsgo Tailwind shadcn scss react rust 
+
+
+there.js
+math.js
+
+manim
+
+
+图灵测试 图灵完备
+
+转义
+
+康威生命游戏
+
+
+bbcode:steam godot osu! 
+
+iframe

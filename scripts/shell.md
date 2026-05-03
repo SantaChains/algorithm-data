@@ -6,7 +6,7 @@ sh
 
 VBScript
 
-Perl Ruby
+Perl Ruby lisp
 
 nim V
 

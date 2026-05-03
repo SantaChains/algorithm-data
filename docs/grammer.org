@@ -1,0 +1,477 @@
+#+TITLE: Org 语法介绍
+
+Org（Org mode）是一种用于笔记、写书、写稿、做幻灯片、管理任务的内置标记语言，文件扩展名为 =.org=。
+官方手册：https://orgmode.org/zh-CN/quickstart.html
+
+* 文档结构
+
+** 标题等级
+
+星号 =*= 开头表示标题层级，一个 =*= 为一级，两个 =*= 为二级：
+
+#+BEGIN_EXAMPLE
+* 一级标题
+** 二级标题
+*** 三级标题
+#+END_EXAMPLE
+
+** 标题元素
+
+标题完整格式：
+: STARS KEYWORD PRIORITY COMMENT TITLE TAGS
+
+#+BEGIN_EXAMPLE
+* TODO 已完成的任务
+* NEXT 待办事项           :work:
+* 处理中                   :home:study:
+* 已标记的任务        :@context:
+#+END_EXAMPLE
+
+- KEYWORD :: TODO / DONE 等状态关键词
+- PRIORITY :: [#A] [#B] [#C] 优先级
+- TAGS :: =:tag:= 标签，冒号环绕
+
+*** 待办事项
+
+=* TODO= / =* DONE= 为默认关键词，可自定义：
+
+#+BEGIN_EXAMPLE
+* TODO 学习 Org 语法
+* NEXT 写笔记
+* HOLD 搁置任务
+* 已完成的任务 DONE
+#+END_EXAMPLE
+
+* 列表
+
+** 无序列表
+
+=-= 、 =+= 、 =*= 均可开头：
+
+#+BEGIN_EXAMPLE
+- 苹果
+- 香蕉
+  + 酸
+  + 甜
+* 项目符号
+#+END_EXAMPLE
+
+** 有序列表
+
+=1 .= 或 =1)= 开头：
+
+#+BEGIN_EXAMPLE
+1. 第一步
+2. 第二步
+   1) 子步骤 A
+   2) 子步骤 B
+#+END_EXAMPLE
+
+** 勾选列表
+
+=[ ]= 、 =[-]= 、 =[X]= 表示未完成/进行中/已完成：
+
+#+BEGIN_EXAMPLE
+- [ ] 待办事项
+- [-] 进行中
+- [X] 已完成
+#+END_EXAMPLE
+
+** 描述列表
+
+=::= 分隔项与描述：
+
+#+BEGIN_EXAMPLE
+- 苹果 :: 水果
+- 胡萝卜 :: 蔬菜
+#+END_EXAMPLE
+
+* 文字格式（强调）
+
+#+BEGIN_EXAMPLE
+*粗体*
+/斜体/
+_下划线_
+=等宽=
+~代码~
++删除线+
+#+END_EXAMPLE
+
+组合使用时 =~= 和 === 必须在最里层：
+#+BEGIN_EXAMPLE
+*粗体 /斜体 _下划线_ +删除线+ =等宽= ~代码~*
+#+END_EXAMPLE
+
+* 链接
+
+=[[目标][描述]]= 格式，双括号：
+
+#+BEGIN_EXAMPLE
+[[https://orgmode.org][Org 官网]]
+[[file:./data/test.csv]]
+[[某标题][跳转到指定标题]]
+#+END_EXAMPLE
+
+常见类型：
+- =https://= 网页
+- =file:= 本地文件
+- =elisp:= Emacs Lisp 代码
+
+* 区块
+
+** 示例区块
+
+#+BEGIN_EXAMPLE
+#+BEGIN_EXAMPLE
+这是一段等宽文字
+不解析任何标记
+#+END_EXAMPLE
+#+END_EXAMPLE
+
+** 源码区块
+
+#+BEGIN_SRC python
+def hello():
+    print("Hello, Org!")
+#+END_SRC
+
+支持语言：python, javascript, rust, shell, elisp, ruby, go, java, R 等
+
+*** 源码块参数
+
+=#+HEADER: :var x=10= 传参，=#+NAME:= 命名：
+
+#+BEGIN_SRC python :var a=2 :var b=3
+return a ** b
+#+END_SRC
+
+#+RESULTS: my-calc
+: 8
+
+#+NAME: my-calc
+#+BEGIN_SRC python :var n=3
+return n * n
+#+END_SRC
+
+** 引用区块
+
+#+BEGIN_QUOTE
+这是一段引用内容
+会自动缩进
+#+END_QUOTE
+
+** 其他区块
+
+| 区块      | 用途           |
+|----------|----------------|
+|VERSE     | 诗歌，可换行   |
+|CENTER    | 居中对齐       |
+|HTML      | 原始 HTML      |
+|LaTeX     | 原始 LaTeX    |
+|COMMENT   | 整块注释       |
+
+* 表格
+
+=|= 分隔列，=-= 分隔表头：
+
+| 姓名 | 年龄 | 城市   |
+|------|------|--------|
+| 张三 |   30 | 北京   |
+| 李四 |   25 | 上海   |
+
+** 表格公式
+
+#+BEGIN_EXAMPLE
+#+TBLFM: $3=$1+$2
+#+END_EXAMPLE
+
+- =$1= 、 =$2= 为列引用
+- =@1= 、 =@2= 为行引用
+- 支持 Calc 和 Emacs Lisp 公式
+
+** 表格命名
+
+#+BEGIN_EXAMPLE
+#+NAME: scores
+#+CAPTION: 学生成绩表
+| 姓名 | 数学 | 英语 |
+|------|------|------|
+| 张三 |   90 |  85 |
+#+TBLFM: $3=$2*0.5+$3*0.5
+#+END_EXAMPLE
+
+* 图片与文件
+
+直接链接即可显示：
+#+BEGIN_EXAMPLE
+[[./images/logo.png]]
+#+END_EXAMPLE
+
+属性控制：
+#+BEGIN_EXAMPLE
+#+ATTR_ORG: :width 300 :height 200
+#+ATTR_LATEX: :width 10cm
+[[./images/diagram.png]]
+#+END_EXAMPLE
+
+* 水平线
+
+=----= 单独一行画横线
+
+* 注释
+
+行首 =#= 为注释，不会导出：
+#+BEGIN_EXAMPLE
+# 这行是注释
+* 标题 # 这是标题行尾的注释
+#+END_EXAMPLE
+
+整块注释用 =#+BEGIN_COMMENT= ... =#+END_COMMENT=
+
+* 属性抽屉
+
+标题下的属性抽屉：
+#+BEGIN_EXAMPLE
+* 任务
+:PROPERTIES:
+:ID:       unique-id-123
+:ASSIGNED: 张三
+:DEADLINE: <2025-12-31>
+:END:
+#+END_EXAMPLE
+
+常见属性：
+- =ID= :: 唯一标识
+- =DEADLINE= :: 截止日期 =<2025-12-31>=
+- =SCHEDULED= :: 计划日期
+- =CLOSED= :: 完成日期
+- =CUSTOM_ID= :: 自定义链接锚点
+
+** 活动时间抽屉
+
+=LOGBOOK= 抽屉记录活动时间：
+#+BEGIN_EXAMPLE
+:LOGBOOK:
+- State "DONE"       from "TODO"       <2025-05-03 10:00>
+- State "TODO"       from ""           <2025-05-01 09:00>
+:END:
+#+END_EXAMPLE
+
+时间戳格式：
+- 普通：=<2025-05-03>=
+- 带时间：=<2025-05-03 10:00>=
+- 日程：=SCHEDULED: <2025-05-03>=
+- 截止：=DEADLINE: <2025-05-03>=
+
+** 通用抽屉
+
+除 =:PROPERTIES:= 外，任意名称均可定义抽屉：
+#+BEGIN_EXAMPLE
+:DRAWER:
+内容
+:END:
+
+:RESULTS:
+执行结果
+:END:
+
+:NOTES:
+笔记内容
+:END:
+#+END_EXAMPLE
+
+* Babel 代码执行
+
+=org-babel= 可在文档中运行代码块。
+
+** 结果模式
+
+=:results value= 返回值（默认），=:results output= 返回标准输出：
+
+#+BEGIN_SRC python :results output
+print("Hello")
+return 4
+#+END_SRC
+
+#+RESULTS:
+: Hello
+
+** 传参与调用
+
+#+NAME: square
+#+BEGIN_SRC python :var n=3
+return n * n
+#+END_SRC
+
+#+CALL: square(n=7)
+
+* 宏替换
+
+#+BEGIN_EXAMPLE
+#+MACRO: version @@html:<b>$1</b>@@
+{{{version(Org 语法)}}}
+#+END_EXAMPLE
+
+内置宏：={{{title}}}= 、={{{author}}}= 、={{{date}}}=
+
+* 导出设置
+
+文件开头用 =#+OPTIONS= 等设置：
+#+BEGIN_EXAMPLE
+#+TITLE: 我的文档
+#+AUTHOR: 作者名
+#+DATE: 2025-05-03
+#+LANGUAGE: zh
+#+OPTIONS: toc:t num:t
+#+END_EXAMPLE
+
+常见选项：
+- =toc:t= 显示目录
+- =num:t= 编号章节
+- =H:n= 标题深度
+- =^:nil= 不处理下标
+
+* 内部链接
+
+=<<目标>>= 定义锚点：
+#+BEGIN_EXAMPLE
+<<计算结果>>
+
+见 [[计算结果]]
+
+[[#my-id]]              跳转到 ID 属性
+#+END_EXAMPLE
+
+* 特殊符号（Entity）
+
+=\火星= → ☄，=\太阳= → ☀️，=\著作权= → ©
+
+* Footnote（脚注）
+
+=fn:1= 定义脚注：
+#+BEGIN_EXAMPLE
+Org 支持脚注[fn:1]。
+
+[fn:1] 脚注内容在文件底部。
+#+END_EXAMPLE
+
+行内定义：=[fn:: 解释性脚注]=
+
+* 元数据关键字
+
+=#+KEY: value= 格式，出现在文档任意位置：
+
+| 关键字           | 用途              |
+|----------------|-------------------|
+| #+TITLE        | 标题              |
+| #+AUTHOR       | 作者              |
+| #+DATE         | 日期              |
+| #+EMAIL        | 邮箱              |
+| #+LANGUAGE     | 语言              |
+| #+KEYWORDS     | 关键词            |
+| #+DESCRIPTION  | 描述              |
+| #+MACRO        | 宏定义            |
+| #+NAME         | 元素命名          |
+| #+CAPTION      | 标题              |
+| #+ATTR_LATEX   | LaTeX 属性        |
+| #+ATTR_HTML    | HTML 属性         |
+| #+BEGIN_HTML   | 内嵌 HTML         |
+| #+HTML:        | 单行 HTML         |
+
+* 嵌入代码（Inline）
+
+=src_lang{代码}= 内联执行：
+#+BEGIN_EXAMPLE
+计算结果为 src_python{2**10}
+#+END_EXAMPLE
+
+* 日期和时间
+
+=DEADLINE= 和 =SCHEDULED= 放在标题行下：
+#+BEGIN_EXAMPLE
+* TODO 任务
+  SCHEDULED: <2025-05-10>
+  DEADLINE: <2025-05-15>
+#+END_EXAMPLE
+
+时间段：=<2025-05-10>--<2025-05-15>=
+
+* 工作流状态
+
+在文件或头部设置 =#+TODO= 自定义工作流：
+#+BEGIN_EXAMPLE
+#+TODO: TODO(t) INPROGRESS(i) WAITING(w@) | DONE(d) CANCELED(c@)
+#+END_EXAMPLE
+
+=@= 表示自动附时间戳。
+
+* 稀疏树
+
+=C-c /= 按条件显示部分文档（过滤标题/关键词/正则）。
+
+* GTD 项目管理
+
+=+FILETAGS= 文件级标签，=+TAGS= 全局可用标签：
+#+BEGIN_EXAMPLE
+#+FILETAGS: :myproject:
+#+TODO: TODO(t) | DONE(d)
+
+* 项目 [0/1]
+:PROPERTIES:
+:CATEGORY: myproject
+:END:
+** TODO 子任务1
+** DONE 子任务2
+#+END_EXAMPLE
+
+* Org Babel 支持语言（部分）
+
+python, javascript, rust, c, cpp, ruby, shell, sql,
+lua, elisp, haskell, go, java, R, matlab, perl,
+plantuml, dot, ditaa, gnuplot, ipython, jupyter
+
+* 常用快捷键（Emacs）
+
+| 快捷键            | 操作                    |
+|-----------------|------------------------|
+| C-c C-c         | 执行代码块 / 刷新公式    |
+| C-c C-l         | 插入链接                |
+| C-c C-x C-v     | 显示图片                |
+| C-c |           | 转换为表格              |
+| M-RET           | 插入同级标题/列表项      |
+| M-left/right    | 调整标题层级            |
+| C-c C-o         | 打开链接                |
+| C-c /           | 稀疏树搜索              |
+| C-c a a         | 日程视图                |
+| C-c C-x C-i     | 计时开始                |
+| C-c C-x C-d     | 计时显示                |
+| C-c C-x C-c     | 计时结束                |
+
+* 导出格式
+
+=C-c C-e= 唤出导出菜单，支持：
+
+HTML, LaTeX/PDF, ODT, Markdown, JSON,
+ASCII, iCalendar, man, Info, Beamer (幻灯片)
+
+* 扩展与生态
+
+| 工具/库         | 用途                        |
+|----------------|----------------------------|
+| ox-hugo        | 导出为 Hugo 静态网站         |
+| ox-hollow      | 导出为 Hollow 网站          |
+| ox-twbs        | 导出为 Bootstrap 网页       |
+| org-ref        | 文献引用管理                |
+| org-roam       | 双链笔记（类似 Roam Research）|
+| org-brain      | 脑图式链接                  |
+| ob-jupyter     | Jupyter notebook 集成       |
+| org-noter      | PDF 批注                    |
+| org-superstar  | 美化样式                    |
+| org-bullets    | 用 Unicode 符号代替星号      |
+
+* 参考资源
+
+- 官方快速入门：https://orgmode.org/zh-CN/quickstart.html
+- 官方手册：https://orgmode.org/manual/
+- 语法规范：https://orgmode.org/worg/org-syntax.html
+- Worg（社区文档）：https://orgmode.org/worg/

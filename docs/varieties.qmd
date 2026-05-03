@@ -1,0 +1,272 @@
+---
+title: "Markdown 方言语法对比"
+description: "MDX、MDC、QMD、RMD、AsciiDoc 等标记语言语法简述"
+format: html
+---
+
+# Markdown 方言语法对比
+
+本文简述常见 Markdown 扩展格式的语法特点，以 **QMD (Quarto)** 为基准，重点说明其他格式与其差异。
+
+---
+
+## 1. QMD (Quarto) {#sec-qmd}
+
+Quarto 基于 Pandoc Markdown，专为科学计算和技术文档设计。
+
+### 基础语法
+
+```markdown
+---
+title: "文档标题"
+author: "作者"
+format: html
+---
+
+# 一级标题
+
+**粗体** *斜体* `代码`
+
+- 无序列表
+- 项目
+
+1. 有序列表
+
+| 列1 | 列2 |
+|-----|-----|
+| 数据 | 数据 |
+
+$行内公式$ 
+$$块级公式$$
+```
+
+### 代码执行
+
+```{{python}}
+# 可执行代码块 (使用 {{< language >}} 语法)
+print("Hello")
+```
+
+### 特有功能
+
+- **Callout 块**: `:::{.callout-note}` 提示框
+- **交叉引用**: `@sec-qmd` 引用章节
+- **多格式输出**: HTML、PDF、Word、Reveal.js
+
+---
+
+## 2. MDX (Markdown + JSX) {#sec-mdx}
+
+MDX 将 Markdown 与 JSX 结合，可在文档中嵌入 React 组件。
+
+### 与 QMD 的差异
+
+| 特性 | MDX | QMD |
+|------|-----|-----|
+| 组件嵌入 | `<Component prop={value} />` | `:::{.class}` |
+| 导入语法 | `import { Chart } from './chart'` | YAML 或代码块 |
+| JavaScript 表达式 | `{variable}` | `{{r}} variable` |
+| 代码执行 | 编译时静态 | 运行时动态 |
+
+### 特有语法
+
+```mdx
+import { Chart } from './chart.js'
+export const year = 2023
+
+# 标题
+
+<div className="custom">
+  JSX 组件可直接使用
+</div>
+
+<Chart year={year} />
+
+{/* JSX 注释 */}
+```
+
+---
+
+## 3. MDC (Markdown Components) {#sec-mdc}
+
+MDC 是 Nuxt Content 的 Vue 组件集成语法。
+
+### 与 QMD 的差异
+
+| 特性 | MDC | QMD |
+|------|-----|-----|
+| 组件语法 | `::component` | `:::{.class}` |
+| 插槽 | `#slotname` 内容 `::` | 不支持命名插槽 |
+| 内联组件 | `:icon-name` | 不支持 |
+| 框架绑定 | Vue/Nuxt 专用 | 框架无关 |
+
+### 特有语法
+
+```markdown
+::card
+#title
+卡片标题
+#default
+卡片内容，支持 **Markdown**
+::
+
+:icon{name="mdi:home"} 内联图标
+
+::alert{type="warning"}
+警告内容
+::
+```
+
+---
+
+## 4. RMD (R Markdown) {#sec-rmd}
+
+RMD 是 R 生态的数据分析文档格式，QMD 是其现代替代品。
+
+### 与 QMD 的差异
+
+| 特性 | RMD | QMD |
+|------|-----|-----|
+| 代码块引擎 | `` ```{r} `` | 相同 |
+| 内联代码 | `` `r code` `` | `` `{{r}} code` `` |
+| YAML 选项 | `output: html_document` | `format: html` |
+| 多语言支持 | 主要 R | Python、R、Julia |
+| 文档结构 | 较简单 | 更现代 |
+
+### 特有语法
+
+```markdown
+---
+title: "R 分析"
+output: html_document
+---
+
+```{r, echo=FALSE, fig.width=7}
+plot(cars)
+```
+
+内联 R 代码：`` `r mean(mtcars$mpg)` ``
+```
+
+---
+
+## 5. AsciiDoc (ADOC) {#sec-adoc}
+
+AsciiDoc 是功能最丰富的标记语言，面向技术文档和书籍出版。
+
+### 与 QMD 的差异
+
+| 特性 | AsciiDoc | QMD |
+|------|----------|-----|
+| 标题 | `= 一级` `== 二级` | `# 一级` `## 二级` |
+| 粗体/斜体 | `*粗体*` `_斜体_` | `**粗体**` `*斜体*` |
+| 代码块 | `[source,python]` `----` | ` ```python` |
+| 链接 | `https://url[文本]` | `[文本](url)` |
+| 图片 | `image::path.png[alt]` | `![alt](path)` |
+| 包含文件 | `include::file.adoc[]` | 有限支持 |
+| Admonitions | `NOTE: 内容` | `:::{.callout-note}` |
+
+### 特有语法
+
+```asciidoc
+= 文档标题
+作者名称 <email@example.com>
+:toc:
+
+== 章节标题
+
+这是一个 *粗体* 和 _斜体_ 的段落。
+
+NOTE: 这是提示块。
+
+[source,python]
+----
+def hello():
+    print("Hello")
+----
+
+|===
+| 表头1 | 表头2
+
+| 单元格1
+| 单元格2
+|===
+```
+
+---
+
+## 6. Hugo Markdown {#sec-hugo}
+
+Hugo 静态站点生成器使用 Goldmark 渲染器，支持 YAML/TOML/JSON frontmatter。
+
+### 与 QMD 的差异
+
+- **Frontmatter**: TOML (`+++`) 或 YAML (`---`)
+- **短代码**: `{{</* shortcode */>}}` 嵌入模板
+- **内联 HTML**: 默认允许
+
+```markdown
+---
+title: "Hugo 文章"
+date: 2024-01-01
+draft: false
+---
+
+# 标题
+
+{{< figure src="image.png" title="图片标题" >}}
+
+{{< youtube dQw4w9WgXcQ >}}
+```
+
+---
+
+## 7. GitHub Flavored Markdown (GFM) {#sec-gfm}
+
+GitHub 使用的 Markdown 方言，最广泛支持的格式。
+
+### 与 QMD 的差异
+
+- **任务列表**: `- [x] 已完成`
+- **自动链接**: 自动识别 URL
+- **表格**: 基础表格，不支持复杂合并
+- **代码块**: 支持语法高亮，无可执行功能
+
+```markdown
+# 标题
+
+- [x] 已完成任务
+- [ ] 待办任务
+
+| 左对齐 | 居中 | 右对齐 |
+| :----- | :--: | -----: |
+| 内容   | 内容 | 内容   |
+
+> [!NOTE]
+> GitHub 提示块语法
+```
+
+---
+
+## 对比总结 {#sec-summary}
+
+| 语言 | 主要用途 | 核心特色 | 与 QMD 关系 |
+|------|----------|----------|-------------|
+| **QMD** | 科学计算文档 | 多语言执行、现代工具链 | 基准 |
+| **MDX** | React/Vue 文档站点 | JSX 组件嵌入 | 前端框架专用 |
+| **MDC** | Nuxt/Vue 内容 | Vue 组件集成 | Nuxt 生态专用 |
+| **RMD** | R 数据分析 | R 深度集成 | QMD 的前身 |
+| **AsciiDoc** | 技术书籍/手册 | 企业级文档功能 | 功能更强大但更复杂 |
+| **Hugo MD** | 静态博客/站点 | 短代码、多 frontmatter | 静态站点专用 |
+| **GFM** | 代码仓库文档 | 最广泛支持 | 基础 Markdown |
+
+---
+
+## 选择建议 {#sec-advice}
+
+- **学术论文/数据分析**: 使用 **QMD**
+- **React/Vue 文档站点**: 使用 **MDX** 或 **MDC**
+- **R 传统项目**: 使用 **RMD** (逐步迁移至 QMD)
+- **企业技术文档**: 使用 **AsciiDoc**
+- **个人博客**: 使用 **Hugo Markdown**
+- **README/简单文档**: 使用 **GFM**

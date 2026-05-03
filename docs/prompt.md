@@ -11,3 +11,6 @@ Industry-standard project practices（行业级最佳实践，更正式）
 
 syntactic dialect 语法方言
 language dialect 编程语言方言
+
+
+AST = Abstract Syntax Tree，抽象语法树
