@@ -16,9 +16,12 @@ slide:marp
 
 
 ## 自动化
-
+latex suite
+HyperSnips(vscode)
 
 ## 软件联动
 zetoro
 anki
 memo
+
+

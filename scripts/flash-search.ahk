@@ -107,7 +107,8 @@ ExtractLinks(text)
 
 TrimTrailingPunct(url)
 {
-    local punct := ".,;:!?'"""
+    local quote := Chr(34)
+    local punct := ".,;:!?" quote . "' "
     loop
     {
         local lastChar := SubStr(url, -1)

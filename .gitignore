@@ -52,6 +52,7 @@ build/
 Cargo.lock
 
 # LaTeX
+*.pdf
 *.aux
 *.log
 *.toc
