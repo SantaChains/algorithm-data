@@ -107,7 +107,7 @@ ExtractLinks(text)
 
 TrimTrailingPunct(url)
 {
-    local punct := ".,;:!?'" . '`"'
+    local punct := ".,;:!?'"""
     loop
     {
         local lastChar := SubStr(url, -1)
@@ -166,7 +166,7 @@ ShowLinkPanel(links, remaining := "")
         g_LinkPanel := 0
     }
 
-    local panel := Gui("+AlwaysOnTop +ToolWindow +Resize MinSize400x100")
+    local panel := Gui("+AlwaysOnTop +ToolWindow +Resize +MinSize400x100")
     panel.SetFont("s10", "Segoe UI")
     panel.Title := "选择链接"
 
