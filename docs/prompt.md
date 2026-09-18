@@ -14,3 +14,9 @@ language dialect 编程语言方言
 
 
 AST = Abstract Syntax Tree，抽象语法树
+
+
+no emoji 
+
+
+不要概述性内容,直接干货.语法精讲

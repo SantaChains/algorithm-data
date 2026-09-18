@@ -92,5 +92,5 @@ Cargo.lock
 $RECYCLE.BIN/
 System Volume Information/
 
-# OpenMemory - IDE/Assistant specific rules
 
+node_modules/

@@ -42,6 +42,8 @@ math.js
 manim
 
 
+regdit
+
 图灵测试 图灵完备
 
 转义
